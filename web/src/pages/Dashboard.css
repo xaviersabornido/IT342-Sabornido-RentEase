@@ -1,0 +1,461 @@
+/* RentEase Dashboard */
+
+.dashboard-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Circular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ——— Header/Navbar ——— */
+.dashboard-header {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(255, 90, 95, 0.1);
+  border-bottom: 1px solid rgba(255, 90, 95, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-brand .brand-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #ff5a5f 0%, #e31c5f 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.header-brand .brand-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #222;
+  margin: 0;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ff5a5f 0%, #e31c5f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #222;
+  font-weight: 500;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.btn-profile:hover {
+  background: #efefef;
+  border-color: #ff5a5f;
+  color: #ff5a5f;
+}
+
+.btn-profile svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-logout {
+  padding: 8px 20px;
+  background: linear-gradient(135deg, #ff5a5f 0%, #e31c5f 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  box-shadow: 0 2px 8px rgba(255, 90, 95, 0.2);
+}
+
+.btn-logout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 90, 95, 0.35);
+}
+
+.btn-logout:active {
+  transform: translateY(0);
+}
+
+/* ——— Main Content ——— */
+.dashboard-main {
+  flex: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 32px 24px;
+}
+
+/* Greeting Section */
+.greeting-section {
+  margin-bottom: 32px;
+}
+
+.greeting-content {
+  background: linear-gradient(135deg, rgba(255, 90, 95, 0.08) 0%, rgba(227, 28, 95, 0.08) 100%);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 90, 95, 0.12);
+}
+
+.greeting-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #222;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+
+.greeting-subtitle {
+  font-size: 1rem;
+  color: #717171;
+  margin: 0;
+}
+
+/* Stats Section */
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  box-shadow: 0 2px 8px rgba(255, 90, 95, 0.08);
+  border: 1px solid rgba(255, 90, 95, 0.08);
+  transition: all 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(255, 90, 95, 0.12);
+  border-color: rgba(255, 90, 95, 0.15);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.stat-card-1 .stat-icon {
+  background: linear-gradient(135deg, #ff5a5f, #e31c5f);
+}
+
+.stat-card-2 .stat-icon {
+  background: linear-gradient(135deg, #00a699, #008489);
+}
+
+.stat-card-3 .stat-icon {
+  background: linear-gradient(135deg, #ffb400, #ff8c00);
+}
+
+.stat-card-4 .stat-icon {
+  background: linear-gradient(135deg, #e31c5f, #c13584);
+}
+
+.stat-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.stat-info {
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #717171;
+  margin: 0 0 6px;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #222;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(255, 90, 95, 0.08);
+  border: 1px solid rgba(255, 90, 95, 0.08);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 90, 95, 0.08);
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.card-link {
+  font-size: 0.85rem;
+  color: #ff5a5f;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.card-link:hover {
+  color: #e31c5f;
+  text-decoration: underline;
+}
+
+/* Recent Activity */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.activity-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.activity-item:hover {
+  background: #f5f5f5;
+}
+
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.activity-icon-1 {
+  background: linear-gradient(135deg, #ff5a5f, #e31c5f);
+}
+
+.activity-icon-2 {
+  background: linear-gradient(135deg, #ffb400, #ff8c00);
+}
+
+.activity-icon-3 {
+  background: linear-gradient(135deg, #00a699, #008489);
+}
+
+.activity-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #222;
+  margin: 0 0 4px;
+}
+
+.activity-time {
+  font-size: 0.8rem;
+  color: #999;
+  margin: 0;
+}
+
+/* Quick Actions */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.action-btn-primary {
+  background: linear-gradient(135deg, #ff5a5f 0%, #e31c5f 100%);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(255, 90, 95, 0.2);
+}
+
+.action-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 90, 95, 0.35);
+}
+
+.action-btn-secondary {
+  background: linear-gradient(135deg, #00a699 0%, #008489 100%);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 166, 153, 0.2);
+}
+
+.action-btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 166, 153, 0.35);
+}
+
+.action-btn-tertiary {
+  background: linear-gradient(135deg, #ffb400 0%, #ff8c00 100%);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(255, 180, 0, 0.2);
+}
+
+.action-btn-tertiary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 180, 0, 0.35);
+}
+
+.action-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header-brand {
+    gap: 8px;
+  }
+
+  .header-title {
+    font-size: 1.25rem;
+  }
+
+  .header-actions {
+    gap: 12px;
+  }
+
+  .btn-profile span {
+    display: none;
+  }
+
+  .btn-profile {
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-main {
+    padding: 20px 16px;
+  }
+
+  .stats-section {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .greeting-title {
+    font-size: 1.5rem;
+  }
+
+  .header-content {
+    padding: 12px 16px;
+  }
+
+  .greeting-content {
+    padding: 16px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .action-btn {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+}
