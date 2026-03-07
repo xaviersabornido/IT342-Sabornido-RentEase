@@ -28,3 +28,5 @@ If PowerShell blocks `.\start.ps1` (execution policy), use `start.cmd` or run:
 `powershell -ExecutionPolicy Bypass -File .\start.ps1`
 
 This runs Supabase migrations (if `SUPABASE_DB_URL` is in `.env`), then starts the Spring Boot backend. The script loads `.env` so `SUPABASE_DB_PASSWORD` is available to the backend.
+
+Last Update : March 07, 2026
