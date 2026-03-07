@@ -1,3 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
 spring:
   application:
     name: rentease
+  datasource:
+    url: jdbc:postgresql://${SUPABASE_DB_HOST:aws-1-ap-southeast-2.pooler.supabase.com}:${SUPABASE_DB_PORT:6543}/${SUPABASE_DB_NAME:postgres}
+    username: ${SUPABASE_DB_USER:postgres.uabtldpqfbkkwmqxtzmq}
+    password: ${SUPABASE_DB_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        default_schema: public
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:RentEaseJwtSecretKeyForSigningTokensMinimum256BitsRequiredForHS256}
+    access-expiration-ms: 3600000
+    refresh-expiration-ms: 604800000

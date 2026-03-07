@@ -1,0 +1,18 @@
+package edu.cit.sabornido.rentease.repository;
+
+import edu.cit.sabornido.rentease.entity.RentalRequest;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+public interface RentalRequestRepository extends JpaRepository<RentalRequest, Long> {
+    @Query("SELECT rr FROM RentalRequest rr JOIN rr.listing l WHERE rr.renterId = :renterId AND rr.status = 'APPROVED' AND l.ownerId = :ownerId")
+    Optional<RentalRequest> findApprovedByRenterAndOwner(UUID renterId, UUID ownerId);
+    List<RentalRequest> findByRenterId(UUID renterId);
+    List<RentalRequest> findByListingId(Long listingId);
+    Optional<RentalRequest> findByListingIdAndRenterId(Long listingId, UUID renterId);
+    boolean existsByListingIdAndRenterId(Long listingId, UUID renterId);
+}
