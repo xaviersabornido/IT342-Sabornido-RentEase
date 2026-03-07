@@ -1,0 +1,16 @@
+package edu.cit.sabornido.rentease.repository;
+
+import edu.cit.sabornido.rentease.entity.Rating;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.Optional;
+import java.util.UUID;
+
+public interface RatingRepository extends JpaRepository<Rating, Long> {
+    Optional<Rating> findByRentalRequestId(Long rentalRequestId);
+    boolean existsByRentalRequestId(Long rentalRequestId);
+
+    @Query("SELECT AVG(r.ratingValue) FROM Rating r WHERE r.ownerId = :ownerId")
+    Double getAverageRatingByOwnerId(UUID ownerId);
+}
