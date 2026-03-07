@@ -1,6 +1,5 @@
 package edu.cit.sabornido.rentease.dto.auth;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -19,8 +18,4 @@ public class RegisterRequest extends AuthRequest {
     @NotBlank(message = "Role is required")
     @Pattern(regexp = "RENTER|OWNER", message = "Role must be RENTER or OWNER")
     private String role;
-
-    @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters")
-    private String password;
 }
