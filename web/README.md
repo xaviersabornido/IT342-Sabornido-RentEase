@@ -14,3 +14,15 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+---
+
+### Backend API configuration
+
+The frontend communicates with the Spring Boot backend using the base URL configured by the `VITE_API_BASE` environment variable. Create a `.env` file in the `web` folder (or set the variable in your shell) with a value such as:
+
+```bash
+VITE_API_BASE=http://localhost:8080/api/v1
+```
+
+The React code defaults to the above address if the variable is not defined, but setting it explicitly is useful when running the frontend against a different host or port.
