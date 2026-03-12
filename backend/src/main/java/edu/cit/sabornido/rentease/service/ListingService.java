@@ -50,9 +50,21 @@ public class ListingService {
             .ownerId(ownerId)
             .title(req.getTitle().trim())
             .description(req.getDescription() != null ? req.getDescription().trim() : null)
+            .amenities(req.getAmenities() != null ? req.getAmenities().trim() : null)
+            .imageUrls(req.getImageUrls() != null ? req.getImageUrls().trim() : null)
             .price(req.getPrice())
             .location(req.getLocation().trim())
             .propertyType(req.getPropertyType().trim())
+            .bedrooms(req.getBedrooms())
+            .bathrooms(req.getBathrooms())
+            .areaSqFt(req.getAreaSqFt())
+            .parkingSpaces(req.getParkingSpaces())
+            .availableFrom(req.getAvailableFrom())
+            .leaseTermMonths(req.getLeaseTermMonths())
+            .deposit(req.getDeposit())
+            .furnished(req.getFurnished())
+            .petsAllowed(req.getPetsAllowed())
+            .utilitiesEstimate(req.getUtilitiesEstimate())
             .status(Listing.ListingStatus.available)
             .build();
 
@@ -70,9 +82,21 @@ public class ListingService {
 
         listing.setTitle(req.getTitle().trim());
         listing.setDescription(req.getDescription() != null ? req.getDescription().trim() : null);
+        listing.setAmenities(req.getAmenities() != null ? req.getAmenities().trim() : null);
+        listing.setImageUrls(req.getImageUrls() != null ? req.getImageUrls().trim() : null);
         listing.setPrice(req.getPrice());
         listing.setLocation(req.getLocation().trim());
         listing.setPropertyType(req.getPropertyType().trim());
+        listing.setBedrooms(req.getBedrooms());
+        listing.setBathrooms(req.getBathrooms());
+        listing.setAreaSqFt(req.getAreaSqFt());
+        listing.setParkingSpaces(req.getParkingSpaces());
+        listing.setAvailableFrom(req.getAvailableFrom());
+        listing.setLeaseTermMonths(req.getLeaseTermMonths());
+        listing.setDeposit(req.getDeposit());
+        listing.setFurnished(req.getFurnished());
+        listing.setPetsAllowed(req.getPetsAllowed());
+        listing.setUtilitiesEstimate(req.getUtilitiesEstimate());
         listing = listingRepository.save(listing);
         return toResponse(listing);
     }
@@ -95,9 +119,21 @@ public class ListingService {
             .price(listing.getPrice())
             .location(listing.getLocation())
             .description(listing.getDescription())
+            .amenities(listing.getAmenities())
+            .imageUrls(listing.getImageUrls())
             .propertyType(listing.getPropertyType())
             .status(listing.getStatus().name())
             .ownerRating(ownerRating != null ? Math.round(ownerRating * 10.0) / 10.0 : null)
+            .bedrooms(listing.getBedrooms())
+            .bathrooms(listing.getBathrooms())
+            .areaSqFt(listing.getAreaSqFt())
+            .parkingSpaces(listing.getParkingSpaces())
+            .availableFrom(listing.getAvailableFrom())
+            .leaseTermMonths(listing.getLeaseTermMonths())
+            .deposit(listing.getDeposit())
+            .furnished(listing.getFurnished())
+            .petsAllowed(listing.getPetsAllowed())
+            .utilitiesEstimate(listing.getUtilitiesEstimate())
             .build();
     }
 }
