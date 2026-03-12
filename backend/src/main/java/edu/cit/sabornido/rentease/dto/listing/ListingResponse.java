@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -17,7 +18,19 @@ public class ListingResponse {
     private BigDecimal price;
     private String location;
     private String description;
+    private String amenities;
+    private String imageUrls;
     private String propertyType;
     private String status;
     private Double ownerRating;
+    private Integer bedrooms;
+    private Integer bathrooms;
+    private Integer areaSqFt;
+    private Integer parkingSpaces;
+    private LocalDate availableFrom;
+    private Integer leaseTermMonths;
+    private BigDecimal deposit;
+    private Boolean furnished;
+    private Boolean petsAllowed;
+    private BigDecimal utilitiesEstimate;
 }

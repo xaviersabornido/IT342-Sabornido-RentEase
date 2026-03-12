@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -33,6 +34,12 @@ public class Listing {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "amenities", columnDefinition = "TEXT")
+    private String amenities;
+
+    @Column(name = "image_urls", columnDefinition = "TEXT")
+    private String imageUrls;
+
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal price;
 
@@ -41,6 +48,36 @@ public class Listing {
 
     @Column(name = "property_type", nullable = false)
     private String propertyType;
+
+    @Column(name = "bedrooms")
+    private Integer bedrooms;
+
+    @Column(name = "bathrooms")
+    private Integer bathrooms;
+
+    @Column(name = "area_sq_ft")
+    private Integer areaSqFt;
+
+    @Column(name = "parking_spaces")
+    private Integer parkingSpaces;
+
+    @Column(name = "available_from")
+    private LocalDate availableFrom;
+
+    @Column(name = "lease_term_months")
+    private Integer leaseTermMonths;
+
+    @Column(name = "deposit", precision = 12, scale = 2)
+    private BigDecimal deposit;
+
+    @Column(name = "furnished")
+    private Boolean furnished;
+
+    @Column(name = "pets_allowed")
+    private Boolean petsAllowed;
+
+    @Column(name = "utilities_estimate", precision = 12, scale = 2)
+    private BigDecimal utilitiesEstimate;
 
     @Column(nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
