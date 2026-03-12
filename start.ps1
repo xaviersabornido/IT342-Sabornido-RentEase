@@ -20,14 +20,15 @@ Get-Content $envPath | ForEach-Object {
 }
 
 # 2. Run Supabase migrations (build URL from JDBC vars)
-$host = [Environment]::GetEnvironmentVariable("SUPABASE_DB_HOST", "Process")
+# Note: avoid using $host (reserved PS variable)
+$dbHost = [Environment]::GetEnvironmentVariable("SUPABASE_DB_HOST", "Process")
 $user = [Environment]::GetEnvironmentVariable("SUPABASE_DB_USER", "Process")
 $pass = [Environment]::GetEnvironmentVariable("SUPABASE_DB_PASSWORD", "Process")
-if ($host -and $user -and $pass) {
+if ($dbHost -and $user -and $pass) {
     Write-Host "Running Supabase migrations..." -ForegroundColor Yellow
-    $port = [Environment]::GetEnvironmentVariable("SUPABASE_DB_PORT", "Process"); if (-not $port) { $port = "6543" }
+    $port = [Environment]::GetEnvironmentVariable("SUPABASE_DB_PORT", "Process"); if (-not $port) { $port = "5432" }
     $name = [Environment]::GetEnvironmentVariable("SUPABASE_DB_NAME", "Process"); if (-not $name) { $name = "postgres" }
-    $dbUrl = "postgresql://${user}:${pass}@${host}:${port}/${name}"
+    $dbUrl = "postgresql://${user}:${pass}@${dbHost}:${port}/${name}"
     Set-Location $root
     npx supabase db push --db-url $dbUrl
     if ($LASTEXITCODE -ne 0) {

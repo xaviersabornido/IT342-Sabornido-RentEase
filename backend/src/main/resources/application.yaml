@@ -7,18 +7,20 @@ spring:
   application:
     name: rentease
   datasource:
-    url: jdbc:postgresql://${SUPABASE_DB_HOST:aws-1-ap-southeast-2.pooler.supabase.com}:${SUPABASE_DB_PORT:6543}/${SUPABASE_DB_NAME:postgres}
-    username: ${SUPABASE_DB_USER:postgres.uabtldpqfbkkwmqxtzmq}
-    password: ${SUPABASE_DB_PASSWORD:}
+    # Changed port from 6543 to 5432 for Session Mode stability
+    url: jdbc:postgresql://aws-1-ap-southeast-2.pooler.supabase.com:5432/postgres?sslmode=require
+    username: postgres.uabtldpqfbkkwmqxtzmq
+    password: xEq2TOXrJOAFWn7q
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: validate
-    show-sql: false
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
         default_schema: public
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+        # Using the explicit dialect helps prevent startup probing errors
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 app:
   jwt:
