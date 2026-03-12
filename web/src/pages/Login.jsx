@@ -16,9 +16,12 @@ export default function Login() {
     setError('')
     try {
       const data = await login({ email, password })
-      // persist tokens to localStorage for later requests
+      // persist tokens and user to localStorage for later requests
       if (data?.accessToken) {
         localStorage.setItem('accessToken', data.accessToken)
+      }
+      if (data?.user) {
+        localStorage.setItem('user', JSON.stringify(data.user))
       }
       // navigate to dashboard
       navigate('/dashboard')
