@@ -1,0 +1,55 @@
+RentEase Mobile — Authentication Summary (1 Page)
+
+================================================================================
+HOW REGISTRATION WORKS
+================================================================================
+
+The user opens Register from the login screen and fills in first name, last name, email, password, confirm password, and role (Renter or Owner). The app validates the same rules as the web client: required fields, email format, password at least 8 characters, passwords must match, and role must be RENTER or OWNER.
+
+On Sign up, the app calls the backend register API. If the server accepts the request, a "Registration Successful" dialog appears; tapping OK goes to Login so the user signs in explicitly (tokens from registration are not stored). If the request fails, validation or server errors are shown in the form error area; messages come from the API error payload, same idea as the web.
+
+
+================================================================================
+HOW LOGIN WORKS
+================================================================================
+
+The user enters email and password and taps Sign in. The app posts to the backend login API. On success, the response includes accessToken, optional refreshToken, and a user object (email, firstname, lastname, role). These are saved in SharedPreferences via AuthPreferences, similar to the web storing accessToken and user in localStorage.
+
+The app then opens MainActivity (home). MainActivity checks for a saved access token; if there is none, it sends the user to Login. Sign out clears the stored session and returns to Login.
+
+
+================================================================================
+API INTEGRATION USED
+================================================================================
+
+Base URL
+  Configured in res/values/strings.xml as api_base_url. Default is
+  http://10.0.2.2:8080/api/v1 for the Android emulator to reach the host
+  machine; on a physical device use your PC's LAN IP. Same path prefix as the
+  web (VITE_API_BASE / http://localhost:8080/api/v1).
+
+Register endpoint
+  POST {baseUrl}/auth/register
+  JSON body: email, password, firstname, lastname, role
+
+Login endpoint
+  POST {baseUrl}/auth/login
+  JSON body: email, password
+
+Response shape
+  Spring ApiResponse: on success, success is true and data contains user,
+  accessToken, and refreshToken. On failure, success is false and error
+  contains message and optional details (field-level validation).
+
+HTTP stack
+  OkHttp; JSON built with org.json.JSONObject. Network work runs off the main
+  thread using kotlinx.coroutines (lifecycleScope and Dispatchers.IO in
+  AuthApi).
+
+Backend
+  Same Spring Boot service and database as the web app (AuthController under
+  /api/v1/auth, shared user store).
+
+
+This summary describes the mobile app's auth flow only. It does not replace
+full API or security documentation for production (HTTPS, token refresh, etc.).
