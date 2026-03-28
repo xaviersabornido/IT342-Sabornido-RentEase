@@ -1,9 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
     <style name="Base.Theme.Mobile" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/rentease_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">#FFFFE4E4</item>
+        <item name="colorOnPrimaryContainer">@color/rentease_primary_dark</item>
+        <item name="colorSecondary">@color/rentease_primary_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorError">@color/rentease_accent_plum</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="android:colorBackground">@color/rentease_page_bg_start</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/rentease_text_primary</item>
+        <item name="colorOnSurfaceVariant">@color/rentease_text_secondary</item>
+        <item name="colorOutline">@color/rentease_border</item>
     </style>
 
     <style name="Theme.Mobile" parent="Base.Theme.Mobile" />
+
+    <!-- Login / Register: light icons on pink header -->
+    <style name="Theme.Mobile.Auth" parent="Theme.Mobile">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
 </resources>

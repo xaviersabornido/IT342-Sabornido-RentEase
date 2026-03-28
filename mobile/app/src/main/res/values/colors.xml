@@ -2,4 +2,24 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- RentEase web theme (Login.css) -->
+    <color name="rentease_primary">#FF5A5F</color>
+    <color name="rentease_primary_dark">#E31C5F</color>
+    <color name="rentease_accent_plum">#C13584</color>
+    <color name="rentease_page_bg_start">#FFF5F5</color>
+    <color name="rentease_page_bg_end">#FFE8E8</color>
+    <color name="rentease_text_primary">#FF222222</color>
+    <color name="rentease_text_secondary">#FF717171</color>
+    <color name="rentease_border">#FFDDDDDD</color>
+    <color name="rentease_error">#FFE31C5F</color>
+    <color name="rentease_error_soft_bg">#14E31C5F</color>
+    <color name="rentease_link">#FFFF5A5F</color>
+    <color name="rentease_brand_icon_scrim">#40FFFFFF</color>
+    <color name="rentease_tagline">#EBFFFFFF</color>
+    <color name="rentease_card_shadow">#1FFF5A5F</color>
+    <color name="rentease_feature_teal_start">#FF00A699</color>
+    <color name="rentease_feature_teal_end">#FF008489</color>
+    <color name="rentease_feature_amber_start">#FFFFB400</color>
+    <color name="rentease_feature_amber_end">#FFFF8C00</color>
 </resources>
