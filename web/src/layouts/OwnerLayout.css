@@ -1,0 +1,228 @@
+/* Owner shell — RentEase palette (matches Dashboard / Login) */
+
+.owner-layout {
+  min-height: 100vh;
+  display: flex;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+  font-family: 'Circular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.owner-layout *,
+.owner-layout *::before,
+.owner-layout *::after {
+  box-sizing: border-box;
+}
+
+.owner-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid rgba(255, 90, 95, 0.12);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-shadow: 2px 0 12px rgba(255, 90, 95, 0.06);
+}
+
+.owner-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 18px;
+  border-bottom: 1px solid rgba(255, 90, 95, 0.08);
+}
+
+.owner-sidebar-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff5a5f 0%, #e31c5f 50%, #c13584 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.owner-sidebar-logo svg {
+  width: 20px;
+  height: 20px;
+}
+
+.owner-sidebar-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ff5a5f 0%, #e31c5f 60%, #c13584 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.owner-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 12px;
+  flex: 1;
+}
+
+.owner-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #333;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+}
+
+.owner-nav-link:hover {
+  background: rgba(255, 90, 95, 0.06);
+  color: #e31c5f;
+}
+
+.owner-nav-link-active {
+  background: rgba(255, 90, 95, 0.12);
+  color: #c13584;
+  font-weight: 600;
+}
+
+.owner-nav-icon {
+  display: flex;
+  color: inherit;
+}
+
+.owner-nav-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.owner-sidebar-footer {
+  padding: 16px 18px 20px;
+  border-top: 1px solid rgba(255, 90, 95, 0.08);
+}
+
+.owner-sidebar-rating {
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #fff7fa 0%, #ffeef2 100%);
+  border: 1px solid rgba(255, 90, 95, 0.14);
+}
+
+.owner-sidebar-rating-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #a0808a;
+  margin-bottom: 4px;
+}
+
+.owner-sidebar-rating-value {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.owner-sidebar-user {
+  margin: 0 0 10px;
+  font-size: 0.82rem;
+  color: #717171;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.owner-sidebar-logout {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 90, 95, 0.25);
+  background: #fff;
+  color: #e31c5f;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.owner-sidebar-logout:hover {
+  background: rgba(255, 90, 95, 0.08);
+  border-color: #ff5a5f;
+}
+
+.owner-main {
+  flex: 1;
+  min-width: 0;
+  min-height: 100vh;
+}
+
+.owner-main--dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+.owner-main--dashboard > .dashboard-page {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .owner-layout {
+    flex-direction: column;
+  }
+
+  .owner-sidebar {
+    width: 100%;
+    min-height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 8px 0;
+  }
+
+  .owner-sidebar-brand {
+    border-bottom: none;
+    padding: 8px 16px;
+    width: 100%;
+  }
+
+  .owner-sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 1;
+    padding: 8px 12px;
+  }
+
+  .owner-nav-link {
+    flex: 1 1 auto;
+    min-width: 120px;
+    justify-content: center;
+  }
+
+  .owner-sidebar-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    border-top: 1px solid rgba(255, 90, 95, 0.08);
+    padding: 12px 16px;
+  }
+
+  .owner-sidebar-user {
+    margin: 0;
+    flex: 1;
+  }
+
+  .owner-sidebar-logout {
+    width: auto;
+  }
+}
