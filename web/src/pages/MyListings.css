@@ -1,0 +1,238 @@
+.my-listings-page {
+  padding: 28px 32px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.my-listings-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.my-listings-title {
+  margin: 0 0 6px;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #222;
+  letter-spacing: -0.02em;
+}
+
+.my-listings-subtitle {
+  margin: 0;
+  font-size: 1rem;
+  color: #717171;
+}
+
+.my-listings-divider {
+  height: 1px;
+  background: rgba(255, 90, 95, 0.12);
+  margin: 22px 0 24px;
+}
+
+.my-listings-status {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+}
+
+.my-listings-status-error {
+  color: #c13584;
+}
+
+.my-listings-empty {
+  background: #fff;
+  border: 1px solid rgba(255, 90, 95, 0.1);
+  border-radius: 12px;
+  padding: 40px 24px;
+  text-align: center;
+  color: #717171;
+  box-shadow: 0 2px 8px rgba(255, 90, 95, 0.06);
+}
+
+.my-listings-table-wrap {
+  background: #fff;
+  border: 1px solid rgba(255, 90, 95, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(255, 90, 95, 0.06);
+}
+
+.my-listings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.my-listings-table thead {
+  background: rgba(255, 90, 95, 0.06);
+}
+
+.my-listings-table th {
+  text-align: left;
+  padding: 14px 16px;
+  font-weight: 700;
+  color: #333;
+  border-bottom: 1px solid rgba(255, 90, 95, 0.1);
+}
+
+.my-listings-table td {
+  padding: 16px;
+  vertical-align: middle;
+  border-bottom: 1px solid #eee;
+  color: #333;
+}
+
+.my-listings-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.my-listings-property-cell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.my-listings-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(255, 90, 95, 0.15) 0%, rgba(227, 28, 95, 0.12) 100%);
+}
+
+.my-listings-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.my-listings-thumb-placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #e8e8e8;
+}
+
+.my-listings-property-name {
+  font-weight: 700;
+  color: #222;
+  line-height: 1.3;
+}
+
+.my-listings-property-address {
+  font-size: 0.82rem;
+  color: #717171;
+  margin-top: 4px;
+}
+
+.my-listings-desc {
+  margin: 0;
+  color: #666;
+  line-height: 1.5;
+  max-width: 420px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.my-listings-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.my-listings-badge-available {
+  background: rgba(46, 160, 67, 0.12);
+  color: #1a7f37;
+}
+
+.my-listings-badge-occupied,
+.my-listings-badge-rented {
+  background: rgba(255, 90, 95, 0.12);
+  color: #c13584;
+}
+
+.my-listings-badge-pending {
+  background: rgba(210, 153, 34, 0.15);
+  color: #9a6700;
+}
+
+.my-listings-badge-default {
+  background: #f0f0f0;
+  color: #555;
+}
+
+.my-listings-col-actions {
+  width: 100px;
+  text-align: right;
+}
+
+.my-listings-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.my-listings-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #555;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.my-listings-icon-btn:hover:not(:disabled) {
+  background: rgba(255, 90, 95, 0.1);
+  color: #e31c5f;
+}
+
+.my-listings-icon-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.my-listings-icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.my-listings-icon-btn-danger:hover:not(:disabled) {
+  background: rgba(193, 53, 132, 0.12);
+  color: #c13584;
+}
+
+@media (max-width: 900px) {
+  .my-listings-table-wrap {
+    overflow-x: auto;
+  }
+
+  .my-listings-table {
+    min-width: 640px;
+  }
+}
+
+@media (max-width: 640px) {
+  .my-listings-page {
+    padding: 20px 16px 32px;
+  }
+
+  .my-listings-title {
+    font-size: 1.45rem;
+  }
+}
