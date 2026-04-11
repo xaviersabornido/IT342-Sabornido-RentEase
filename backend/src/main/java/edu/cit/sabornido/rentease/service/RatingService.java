@@ -1,10 +1,13 @@
 package edu.cit.sabornido.rentease.service;
 
+import edu.cit.sabornido.rentease.dto.rating.OwnerRatingSummaryResponse;
 import edu.cit.sabornido.rentease.dto.rating.RatingRequest;
+import edu.cit.sabornido.rentease.entity.Listing;
 import edu.cit.sabornido.rentease.entity.Rating;
 import edu.cit.sabornido.rentease.entity.RentalRequest;
 import edu.cit.sabornido.rentease.entity.User;
 import edu.cit.sabornido.rentease.exception.AppException;
+import edu.cit.sabornido.rentease.repository.ListingRepository;
 import edu.cit.sabornido.rentease.repository.RatingRepository;
 import edu.cit.sabornido.rentease.repository.RentalRequestRepository;
 import edu.cit.sabornido.rentease.repository.UserRepository;
@@ -22,6 +25,7 @@ public class RatingService {
 
     private final RatingRepository ratingRepository;
     private final RentalRequestRepository rentalRequestRepository;
+    private final ListingRepository listingRepository;
     private final UserRepository userRepository;
 
     @Transactional
@@ -32,25 +36,59 @@ public class RatingService {
             throw new AppException("AUTH-003", "Insufficient permissions", "Only RENTER can submit ratings", HttpStatus.FORBIDDEN);
         }
 
-        if (!userRepository.existsById(req.getOwnerId())) {
-            throw new AppException("DB-001", "Resource not found", Map.of("ownerId", req.getOwnerId().toString()), HttpStatus.NOT_FOUND);
+        RentalRequest rr = rentalRequestRepository.findById(req.getRentalRequestId())
+            .orElseThrow(() -> new AppException("DB-001", "Resource not found", Map.of("rentalRequestId", req.getRentalRequestId().toString()), HttpStatus.NOT_FOUND));
+
+        if (!rr.getRenterId().equals(renterId)) {
+            throw new AppException("AUTH-003", "Insufficient permissions", "You can only rate your own rental requests", HttpStatus.FORBIDDEN);
         }
 
-        RentalRequest rr = rentalRequestRepository.findApprovedByRenterAndOwner(renterId, req.getOwnerId())
-            .orElseThrow(() -> new AppException("BUSINESS-001", "Cannot rate", "You can only rate an owner after an approved rental request for their listing", HttpStatus.BAD_REQUEST));
+        if (rr.getStatus() != RentalRequest.RequestStatus.APPROVED) {
+            throw new AppException("BUSINESS-001", "Cannot rate", "You can only rate an owner after your request has been approved", HttpStatus.BAD_REQUEST);
+        }
 
         if (ratingRepository.existsByRentalRequestId(rr.getId())) {
-            throw new AppException("DB-002", "Duplicate entry", "You have already rated this rental", HttpStatus.CONFLICT);
+            throw new AppException("DB-002", "Duplicate entry", "You have already submitted a rating for this rental", HttpStatus.CONFLICT);
+        }
+
+        Listing listing = listingRepository.findById(rr.getListingId())
+            .orElseThrow(() -> new AppException("DB-001", "Resource not found", null, HttpStatus.NOT_FOUND));
+
+        UUID ownerId = listing.getOwnerId();
+
+        String comment = req.getComment() != null ? req.getComment().trim() : null;
+        if (comment != null && comment.isEmpty()) {
+            comment = null;
         }
 
         Rating rating = Rating.builder()
-            .ownerId(req.getOwnerId())
+            .ownerId(ownerId)
             .renterId(renterId)
             .rentalRequestId(rr.getId())
             .ratingValue(req.getRating())
-            .comment(req.getComment() != null ? req.getComment().trim() : null)
+            .comment(comment)
+            .responsivenessRating(req.getResponsivenessRating())
+            .listingAccuracyRating(req.getListingAccuracyRating())
+            .communicationRating(req.getCommunicationRating())
+            .fairnessRating(req.getFairnessRating())
             .build();
 
         ratingRepository.save(rating);
+    }
+
+    public OwnerRatingSummaryResponse getOwnerSummary(UUID ownerId) {
+        if (!userRepository.existsById(ownerId)) {
+            throw new AppException("DB-001", "Resource not found", Map.of("ownerId", ownerId.toString()), HttpStatus.NOT_FOUND);
+        }
+        Double avg = ratingRepository.getAverageRatingByOwnerId(ownerId);
+        long count = ratingRepository.countByOwnerId(ownerId);
+        String memberSince = userRepository.findById(ownerId)
+            .map(u -> u.getCreatedAt().toString())
+            .orElse(null);
+        return OwnerRatingSummaryResponse.builder()
+            .averageRating(avg != null ? Math.round(avg * 10.0) / 10.0 : null)
+            .reviewCount(count)
+            .memberSince(memberSince)
+            .build();
     }
 }

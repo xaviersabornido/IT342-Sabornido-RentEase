@@ -23,6 +23,10 @@ public class ListingResponse {
     private String propertyType;
     private String status;
     private Double ownerRating;
+    /** Owner display (for property details sidebar). */
+    private String ownerFirstname;
+    private String ownerLastname;
+    private Integer ownerListingCount;
     private Integer bedrooms;
     private Integer bathrooms;
     private Integer areaSqFt;

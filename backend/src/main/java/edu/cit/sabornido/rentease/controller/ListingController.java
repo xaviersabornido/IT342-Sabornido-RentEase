@@ -27,9 +27,19 @@ public class ListingController {
         return ResponseEntity.ok(ApiResponse.success(listingService.getAllListings()));
     }
 
+    @GetMapping("/mine")
+    @PreAuthorize("hasRole('OWNER')")
+    public ResponseEntity<ApiResponse<List<ListingResponse>>> getMine(Authentication auth) {
+        UUID ownerId = (UUID) auth.getPrincipal();
+        return ResponseEntity.ok(ApiResponse.success(listingService.getListingsForOwner(ownerId)));
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<ListingResponse>> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(ApiResponse.success(listingService.getById(id)));
+    public ResponseEntity<ApiResponse<ListingResponse>> getById(
+            @PathVariable Long id,
+            Authentication authentication
+    ) {
+        return ResponseEntity.ok(ApiResponse.success(listingService.getByIdForViewer(id, authentication)));
     }
 
     @PostMapping

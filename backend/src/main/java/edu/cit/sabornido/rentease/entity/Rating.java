@@ -36,6 +36,18 @@ public class Rating {
     @Column(columnDefinition = "TEXT")
     private String comment;
 
+    @Column(name = "responsiveness_rating")
+    private Integer responsivenessRating;
+
+    @Column(name = "listing_accuracy_rating")
+    private Integer listingAccuracyRating;
+
+    @Column(name = "communication_rating")
+    private Integer communicationRating;
+
+    @Column(name = "fairness_rating")
+    private Integer fairnessRating;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
