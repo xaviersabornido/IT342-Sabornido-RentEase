@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import './Login.css'
 import { login } from '../api/auth'
 
@@ -9,7 +9,16 @@ export default function Login() {
   const [remember, setRemember] = useState(false)
 
   const navigate = useNavigate()
+  const location = useLocation()
   const [error, setError] = useState('')
+
+  const redirectAfterLogin = (role) => {
+    const raw = location.state?.from
+    const safe =
+      typeof raw === 'string' && raw.startsWith('/') && !raw.startsWith('//') ? raw : null
+    if (role === 'OWNER') return '/my-listings'
+    return safe || '/dashboard'
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -23,8 +32,8 @@ export default function Login() {
       if (data?.user) {
         localStorage.setItem('user', JSON.stringify(data.user))
       }
-      // navigate to dashboard
-      navigate('/dashboard')
+      const role = data?.user?.role != null ? String(data.user.role).toUpperCase() : ''
+      navigate(redirectAfterLogin(role))
       console.log('login success', data)
     } catch (err) {
       console.error('login failed', err)

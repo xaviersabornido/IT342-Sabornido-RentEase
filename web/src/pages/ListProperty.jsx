@@ -42,7 +42,7 @@ export default function ListProperty() {
         propertyType,
       })
       setSuccess('Property listed successfully.')
-      navigate('/dashboard')
+      navigate(user?.role === 'OWNER' ? '/my-listings' : '/dashboard')
     } catch (err) {
       console.error('Failed to create listing', err)
       setError(err.message || 'Unable to create listing.')

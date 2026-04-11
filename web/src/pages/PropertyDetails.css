@@ -58,6 +58,18 @@
   background: #fff;
   font-size: 0.85rem;
   cursor: pointer;
+  font-family: inherit;
+  color: #222;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.property-nav-btn:hover {
+  border-color: rgba(227, 28, 95, 0.35);
+  background: #fff7fa;
+}
+
+.property-nav-btn--muted {
+  color: #717171;
 }
 
 .property-main {
@@ -109,16 +121,42 @@
   box-shadow: 0 2px 8px rgba(255, 90, 95, 0.08);
 }
 
+/**
+ * Shared 3-column grid so the hero image uses the exact same width as the row of 3 thumbnails below
+ * (same column tracks + gap alignment).
+ */
+.property-hero {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
 .property-hero-main {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 100%;
+  justify-self: stretch;
   background: #ffe4ea;
   border-radius: 10px;
-  height: 260px;
+  /* Full width of the 3-column grid; height follows 16:9 from that width.
+     Do not set max-height here — it interacts badly with aspect-ratio and
+     shrinks the box width, leaving a gap on the right. */
+  aspect-ratio: 16 / 9;
+  min-height: 200px;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #999;
   font-size: 0.9rem;
   overflow: hidden;
+}
+
+.property-hero-placeholder {
+  padding: 16px;
+  text-align: center;
 }
 
 .property-hero-button {
@@ -138,68 +176,110 @@
 }
 
 .property-hero-thumbs {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
+  display: contents;
 }
 
 .property-thumb {
-  flex: 1;
-  height: 56px;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   border-radius: 8px;
-  background: #f5d3de;
+  background: linear-gradient(145deg, #fce4ec 0%, #f5d3de 50%, #e8b4c4 100%);
   overflow: hidden;
+  aspect-ratio: 4 / 3;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.property-thumb--empty {
+  border: 1px dashed rgba(227, 28, 95, 0.22);
 }
 
 .property-thumb-button {
+  display: block;
   border: none;
   padding: 0;
   margin: 0;
   background: transparent;
   width: 100%;
   height: 100%;
+  min-height: 0;
   cursor: pointer;
+  line-height: 0;
+  font: inherit;
 }
 
-/* Fullscreen image viewer */
+/* Fullscreen image viewer — image fits viewport; no forced 100% stretch */
 .image-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.88);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 500;
+  padding: clamp(16px, 4vmin, 40px);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .image-modal-content {
   position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  margin: auto;
 }
 
 .image-modal-content img {
-  width: 100%;
-  height: 100%;
+  display: block;
+  max-width: min(1120px, 100%);
+  /* Fit inside overlay padding — no scrollbar on the lightbox */
+  max-height: calc(100vh - clamp(48px, 12vmin, 100px));
+  max-height: calc(100dvh - clamp(48px, 12vmin, 100px));
+  width: auto;
+  height: auto;
   object-fit: contain;
-  border-radius: 8px;
+  border-radius: 10px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.55);
 }
 
 .image-modal-close {
-  position: absolute;
-  top: -32px;
-  right: 0;
+  position: fixed;
+  top: clamp(12px, 3vh, 20px);
+  right: clamp(12px, 3vw, 20px);
+  z-index: 501;
+  width: 44px;
+  height: 44px;
   border: none;
-  background: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
   color: #fff;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
+  line-height: 1;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.image-modal-close:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: scale(1.05);
 }
 
 .property-thumb img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .property-title-block {
@@ -315,9 +395,490 @@
   margin-top: 2px;
 }
 
+.price-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.price-availability {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #717171;
+  white-space: nowrap;
+}
+
+.sidebar-available-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 2px;
+}
+
+.sidebar-available-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #fff7fa;
+  color: #e31c5f;
+  border: 1px solid rgba(255, 90, 95, 0.15);
+}
+
+.sidebar-available-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #888;
+  margin-bottom: 2px;
+}
+
+.sidebar-available-date {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.sidebar-card-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 16px 0;
+}
+
+.sidebar-section-heading {
+  margin: 0 0 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-owner {
+  margin: 0;
+}
+
+.sidebar-owner-heading {
+  margin: 0 0 12px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-owner-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.sidebar-owner-avatar {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fce4ec 0%, #f5d3de 100%);
+  border: 1px solid rgba(255, 90, 95, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #c13584;
+}
+
+.sidebar-owner-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.sidebar-owner-name {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #222;
+  line-height: 1.25;
+}
+
+.sidebar-owner-stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.sidebar-owner-star {
+  font-size: 0.95rem;
+  line-height: 1;
+  color: #ddd;
+}
+
+.sidebar-owner-star--full {
+  color: #e31c5f;
+}
+
+.sidebar-owner-rating-value {
+  margin-left: 8px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.sidebar-owner-meta {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #717171;
+  line-height: 1.4;
+}
+
+.sidebar-owner-meta-dot {
+  margin: 0 6px;
+}
+
+.property-inline-alert {
+  font-size: 0.88rem;
+  color: #c13584;
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  background: rgba(193, 53, 132, 0.08);
+  border-radius: 8px;
+}
+
+.property-inline-success {
+  font-size: 0.88rem;
+  color: #1a7f37;
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  background: rgba(46, 160, 67, 0.1);
+  border-radius: 8px;
+}
+
+.sidebar-primary-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(0.2);
+}
+
+/* Rental request modal — RentEase palette */
+.rental-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.rental-modal {
+  width: 100%;
+  max-width: 560px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+.rental-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 12px;
+}
+
+.rental-modal-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #222;
+  letter-spacing: -0.02em;
+}
+
+.rental-modal-close {
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #777;
+  padding: 4px 8px;
+}
+
+.rental-modal-divider {
+  height: 1px;
+  background: #e8e8e8;
+  margin: 0 20px;
+}
+
+.rental-modal-summary {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+  align-items: flex-start;
+}
+
+.rental-modal-summary-image {
+  width: 88px;
+  height: 88px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #eee;
+}
+
+.rental-modal-summary-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rental-modal-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 0.65rem;
+  color: #999;
+  text-align: center;
+  padding: 6px;
+}
+
+.rental-modal-summary-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.rental-modal-property-title {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.rental-modal-property-meta {
+  margin: 0 0 6px;
+  font-size: 0.82rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rental-modal-pin {
+  display: flex;
+  color: #e31c5f;
+}
+
+.rental-modal-property-beds {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.rental-modal-dot {
+  margin: 0 6px;
+}
+
+.rental-modal-summary-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rental-modal-price {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #222;
+}
+
+.rental-modal-price-period {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #666;
+}
+
+.rental-modal-avail {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #717171;
+}
+
+.rental-modal-form {
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rental-modal-row {
+  display: flex;
+  gap: 12px;
+}
+
+.rental-modal-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.rental-modal-field--full {
+  flex: 1 1 100%;
+}
+
+.rental-modal-field label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.rental-modal-field input,
+.rental-modal-field select,
+.rental-modal-field textarea {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.rental-modal-input-prefix {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.rental-modal-input-prefix span {
+  padding: 0 10px;
+  font-weight: 600;
+  color: #555;
+  background: #f7f7f7;
+  border-right: 1px solid #ddd;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+
+.rental-modal-input-prefix input {
+  border: none;
+  flex: 1;
+  min-width: 0;
+}
+
+.rental-modal-char-count {
+  margin: 4px 0 0;
+  font-size: 0.72rem;
+  color: #888;
+}
+
+.rental-modal-extra {
+  background: #f7f7f7;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.rental-modal-extra-title {
+  margin: 0 0 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.rental-modal-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #444;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.rental-modal-check:last-child {
+  margin-bottom: 0;
+}
+
+.rental-modal-check input {
+  width: 16px;
+  height: 16px;
+}
+
+.rental-modal-error {
+  font-size: 0.85rem;
+  color: #c13584;
+  margin: 0;
+}
+
+.rental-modal-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.rental-modal-submit {
+  flex: 1;
+  min-width: 160px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.rental-modal-submit:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.rental-modal-submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.rental-modal-cancel {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #222;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+@media (max-width: 520px) {
+  .rental-modal-row {
+    flex-direction: column;
+  }
+}
+
 .sidebar-details {
   margin: 16px 0 12px;
   padding: 0;
+}
+
+.sidebar-section-heading + .sidebar-details {
+  margin-top: 0;
 }
 
 .sidebar-detail-row {
@@ -360,6 +921,15 @@
   background: #fff;
   border: 1px solid #e0e0e0;
   color: #222;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.sidebar-secondary-btn svg {
+  flex-shrink: 0;
+  color: #e31c5f;
 }
 
 .sidebar-hint {
@@ -427,6 +997,40 @@
 .property-not-found {
   font-size: 0.9rem;
   color: #555;
+}
+
+.edit-listing-form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.edit-listing-form-actions .sidebar-primary-btn {
+  margin-bottom: 0;
+}
+
+.sidebar-danger-btn {
+  width: 100%;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #c13584;
+  background: #fff;
+  color: #c13584;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.sidebar-danger-btn:hover:not(:disabled) {
+  background: rgba(193, 53, 132, 0.08);
+}
+
+.sidebar-danger-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 @media (max-width: 960px) {

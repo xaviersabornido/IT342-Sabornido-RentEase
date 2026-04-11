@@ -20,6 +20,13 @@ async function checkResponse(res) {
   return body.data;
 }
 
+function authHeaders() {
+  const token = localStorage.getItem('accessToken');
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) headers.Authorization = `Bearer ${token}`;
+  return headers;
+}
+
 export async function fetchListings() {
   const res = await fetch(`${API_BASE}/listings`, {
     method: 'GET',
@@ -28,10 +35,20 @@ export async function fetchListings() {
   return checkResponse(res);
 }
 
+export async function fetchMyListings() {
+  const res = await fetch(`${API_BASE}/listings/mine`, {
+    method: 'GET',
+    headers: authHeaders(),
+    credentials: 'include',
+  });
+  return checkResponse(res);
+}
+
 export async function fetchListingById(id) {
   const res = await fetch(`${API_BASE}/listings/${id}`, {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
+    headers: authHeaders(),
+    credentials: 'include',
   });
   return checkResponse(res);
 }
@@ -89,5 +106,65 @@ export async function createListing({
   });
 
   return checkResponse(res);
+}
+
+export async function updateListing(id, {
+  title,
+  price,
+  location,
+  description,
+  propertyType,
+  amenities,
+  imageUrls,
+  bedrooms,
+  bathrooms,
+  areaSqFt,
+  parkingSpaces,
+  availableFrom,
+  leaseTermMonths,
+  deposit,
+  furnished,
+  petsAllowed,
+  utilitiesEstimate,
+}) {
+  const res = await fetch(`${API_BASE}/listings/${id}`, {
+    method: 'PUT',
+    headers: authHeaders(),
+    credentials: 'include',
+    body: JSON.stringify({
+      title,
+      price: Number(price),
+      location,
+      description,
+      propertyType,
+      amenities,
+      imageUrls,
+      bedrooms: bedrooms != null && bedrooms !== '' ? Number(bedrooms) : null,
+      bathrooms: bathrooms != null && bathrooms !== '' ? Number(bathrooms) : null,
+      areaSqFt: areaSqFt != null && areaSqFt !== '' ? Number(areaSqFt) : null,
+      parkingSpaces: parkingSpaces != null && parkingSpaces !== '' ? Number(parkingSpaces) : null,
+      availableFrom: availableFrom || null,
+      leaseTermMonths: leaseTermMonths != null && leaseTermMonths !== '' ? Number(leaseTermMonths) : null,
+      deposit: deposit != null && deposit !== '' ? Number(deposit) : null,
+      furnished,
+      petsAllowed,
+      utilitiesEstimate: utilitiesEstimate != null && utilitiesEstimate !== '' ? Number(utilitiesEstimate) : null,
+    }),
+  });
+  return checkResponse(res);
+}
+
+export async function deleteListing(id) {
+  const res = await fetch(`${API_BASE}/listings/${id}`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+    credentials: 'include',
+  });
+  if (res.status === 204) return;
+  const body = await res.json();
+  if (!res.ok || !body.success) {
+    const msg = body?.error?.message || body?.message || res.statusText;
+    throw new Error(msg);
+  }
 }
 
