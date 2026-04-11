@@ -1,0 +1,501 @@
+/* Renter — My rental requests (matches RentEase / owner rental-requests styling) */
+
+.renter-rr-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+  font-family: 'Circular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding-bottom: 48px;
+}
+
+.renter-rr-topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(255, 90, 95, 0.1);
+  border-bottom: 1px solid rgba(255, 90, 95, 0.08);
+}
+
+.renter-rr-topnav-left,
+.renter-rr-topnav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.renter-rr-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  background: none;
+  padding: 4px 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.renter-rr-brand-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff5a5f 0%, #e31c5f 60%, #c13584 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.renter-rr-brand-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.renter-rr-brand-name {
+  font-weight: 800;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, #ff5a5f 0%, #e31c5f 60%, #c13584 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.renter-rr-nav-btn {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+  color: #222;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.renter-rr-nav-btn:hover {
+  border-color: rgba(227, 28, 95, 0.35);
+  background: #fff7fa;
+}
+
+.renter-rr-nav-btn--muted {
+  color: #717171;
+}
+
+.renter-rr-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 24px 0;
+}
+
+.renter-rr-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: #717171;
+  margin-bottom: 18px;
+}
+
+.renter-rr-breadcrumb button {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 0.8rem;
+  color: #e31c5f;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.renter-rr-breadcrumb button:hover {
+  text-decoration: underline;
+}
+
+.renter-rr-breadcrumb-current {
+  color: #222;
+}
+
+.renter-rr-intro {
+  margin-bottom: 20px;
+}
+
+.renter-rr-title {
+  margin: 0 0 6px;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #222;
+  letter-spacing: -0.02em;
+}
+
+.renter-rr-subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #717171;
+  line-height: 1.45;
+  max-width: 52ch;
+}
+
+.renter-rr-flash {
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  font-size: 0.9rem;
+  color: #1a7f37;
+  background: rgba(46, 160, 67, 0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(46, 160, 67, 0.25);
+}
+
+.renter-rr-tabs {
+  display: flex;
+  gap: 28px;
+  border-bottom: 1px solid rgba(255, 90, 95, 0.15);
+  margin-bottom: 22px;
+}
+
+.renter-rr-tab {
+  position: relative;
+  padding: 12px 4px 14px;
+  border: none;
+  background: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #888;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.15s;
+}
+
+.renter-rr-tab:hover {
+  color: #555;
+}
+
+.renter-rr-tab--active {
+  color: #222;
+}
+
+.renter-rr-tab--active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(90deg, #ff5a5f 0%, #e31c5f 55%, #c13584 100%);
+}
+
+.renter-rr-tab-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255, 90, 95, 0.15);
+  color: #c13584;
+}
+
+.renter-rr-tab-count--muted {
+  background: #eee;
+  color: #666;
+}
+
+.renter-rr-status {
+  font-size: 0.92rem;
+  color: #555;
+  margin: 0 0 16px;
+}
+
+.renter-rr-status--error {
+  color: #a61e4d;
+  padding: 12px 14px;
+  background: rgba(227, 28, 95, 0.08);
+  border-radius: 10px;
+  border: 1px solid rgba(227, 28, 95, 0.2);
+}
+
+.renter-rr-panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 22px;
+  border: 1px solid rgba(255, 90, 95, 0.12);
+  box-shadow: 0 2px 12px rgba(255, 90, 95, 0.06);
+}
+
+.renter-rr-panel--soft {
+  background: #fff;
+}
+
+.renter-rr-muted {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #717171;
+  line-height: 1.5;
+}
+
+.renter-rr-empty {
+  text-align: center;
+  padding: 40px 28px 44px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 90, 95, 0.12);
+  box-shadow: 0 2px 12px rgba(255, 90, 95, 0.06);
+}
+
+.renter-rr-empty-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #fff0f3 0%, #ffe0e8 100%);
+  color: #e31c5f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.renter-rr-empty-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.renter-rr-empty-title {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #222;
+}
+
+.renter-rr-empty-text {
+  margin: 0 auto;
+  max-width: 40ch;
+  font-size: 0.95rem;
+  color: #717171;
+  line-height: 1.55;
+}
+
+.renter-rr-empty-text strong {
+  color: #444;
+  font-weight: 600;
+}
+
+.renter-rr-cta {
+  margin-top: 22px;
+  padding: 11px 26px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff5a5f 0%, #e31c5f 100%);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(227, 28, 95, 0.35);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.renter-rr-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(227, 28, 95, 0.4);
+}
+
+.renter-rr-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.renter-rr-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 20px 20px;
+  border: 1px solid rgba(255, 90, 95, 0.12);
+  box-shadow: 0 2px 12px rgba(255, 90, 95, 0.06);
+}
+
+.renter-rr-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.renter-rr-listing-title {
+  margin: 0 0 4px;
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #222;
+  line-height: 1.25;
+}
+
+.renter-rr-listing-loc {
+  margin: 0;
+  font-size: 0.86rem;
+  color: #717171;
+  line-height: 1.35;
+}
+
+.renter-rr-badge {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.renter-rr-badge--pending {
+  background: rgba(255, 90, 95, 0.14);
+  color: #c13584;
+}
+
+.renter-rr-badge--approved {
+  background: rgba(46, 160, 67, 0.14);
+  color: #1a7f37;
+}
+
+.renter-rr-badge--declined {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.renter-rr-note {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.45;
+  margin: 0 0 16px;
+  padding: 11px 13px;
+  background: rgba(255, 90, 95, 0.06);
+  border-radius: 8px;
+  border-left: 3px solid rgba(255, 90, 95, 0.35);
+}
+
+.renter-rr-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 18px;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .renter-rr-meta {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.renter-rr-meta dt {
+  margin: 0 0 3px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #999;
+}
+
+.renter-rr-meta dd {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.renter-rr-meta-span {
+  grid-column: 1 / -1;
+  padding-top: 4px;
+  border-top: 1px dashed rgba(255, 90, 95, 0.15);
+  margin-top: 2px;
+}
+
+.renter-rr-price-suffix {
+  font-weight: 500;
+  font-size: 0.85em;
+  color: #717171;
+  margin-left: 2px;
+}
+
+.renter-rr-quote {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: #555;
+  line-height: 1.5;
+  background: #fff7fa;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 90, 95, 0.12);
+}
+
+.renter-rr-card-actions {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  align-items: center;
+}
+
+.renter-rr-rate-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  color: #fff;
+  background: linear-gradient(135deg, #ff5a5f 0%, #e31c5f 100%);
+  box-shadow: 0 2px 10px rgba(227, 28, 95, 0.3);
+}
+
+.renter-rr-rate-btn:hover {
+  filter: brightness(1.05);
+}
+
+.renter-rr-rated-note {
+  margin: 10px 0 0;
+  font-size: 0.82rem;
+  color: #717171;
+}
+
+.renter-rr-link-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #e31c5f;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.renter-rr-link-btn:hover {
+  color: #c13584;
+}
+
+@media (max-width: 640px) {
+  .renter-rr-topnav {
+    padding: 10px 16px;
+  }
+
+  .renter-rr-main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .renter-rr-card-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .renter-rr-badge {
+    align-self: flex-start;
+  }
+}
