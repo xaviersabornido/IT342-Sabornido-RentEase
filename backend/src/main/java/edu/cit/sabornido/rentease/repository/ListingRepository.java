@@ -8,5 +8,8 @@ import java.util.UUID;
 
 public interface ListingRepository extends JpaRepository<Listing, Long> {
     List<Listing> findByOwnerId(UUID ownerId);
+
+    long countByOwnerId(UUID ownerId);
+
     List<Listing> findByStatus(Listing.ListingStatus status);
 }

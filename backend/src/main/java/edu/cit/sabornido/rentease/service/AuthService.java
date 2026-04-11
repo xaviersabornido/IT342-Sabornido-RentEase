@@ -42,7 +42,7 @@ public class AuthService {
         String refreshToken = jwtUtil.generateRefreshToken(user.getId());
 
         return AuthResponse.builder()
-            .user(new AuthResponse.UserInfo(user.getEmail(), user.getFirstname(), user.getLastname(), user.getRole().name()))
+            .user(new AuthResponse.UserInfo(user.getId(), user.getEmail(), user.getFirstname(), user.getLastname(), user.getRole().name()))
             .accessToken(accessToken)
             .refreshToken(refreshToken)
             .build();
@@ -60,7 +60,7 @@ public class AuthService {
         String refreshToken = jwtUtil.generateRefreshToken(user.getId());
 
         return AuthResponse.builder()
-            .user(new AuthResponse.UserInfo(user.getEmail(), user.getFirstname(), user.getLastname(), user.getRole().name()))
+            .user(new AuthResponse.UserInfo(user.getId(), user.getEmail(), user.getFirstname(), user.getLastname(), user.getRole().name()))
             .accessToken(accessToken)
             .refreshToken(refreshToken)
             .build();

@@ -3,7 +3,9 @@ package edu.cit.sabornido.rentease.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -38,6 +40,30 @@ public class RentalRequest {
     @Column(nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private RequestStatus status;
+
+    @Column(name = "preferred_start_date")
+    private LocalDate preferredStartDate;
+
+    @Column(name = "lease_duration_months")
+    private Integer leaseDurationMonths;
+
+    @Column(name = "monthly_income", precision = 14, scale = 2)
+    private BigDecimal monthlyIncome;
+
+    @Column(name = "employment_status", length = 120)
+    private String employmentStatus;
+
+    @Column(length = 500)
+    private String message;
+
+    @Column(name = "has_pets")
+    private Boolean hasPets;
+
+    @Column(name = "smokes")
+    private Boolean smokes;
+
+    @Column(name = "credit_check_agreed")
+    private Boolean creditCheckAgreed;
 
     @Column(name = "requested_at", nullable = false, updatable = false)
     private Instant requestedAt;

@@ -3,13 +3,16 @@ package edu.cit.sabornido.rentease.service;
 import edu.cit.sabornido.rentease.dto.listing.ListingRequest;
 import edu.cit.sabornido.rentease.dto.listing.ListingResponse;
 import edu.cit.sabornido.rentease.entity.Listing;
+import edu.cit.sabornido.rentease.entity.RentalRequest;
 import edu.cit.sabornido.rentease.entity.User;
 import edu.cit.sabornido.rentease.exception.AppException;
 import edu.cit.sabornido.rentease.repository.ListingRepository;
 import edu.cit.sabornido.rentease.repository.RatingRepository;
+import edu.cit.sabornido.rentease.repository.RentalRequestRepository;
 import edu.cit.sabornido.rentease.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,17 +28,46 @@ public class ListingService {
     private final ListingRepository listingRepository;
     private final UserRepository userRepository;
     private final RatingRepository ratingRepository;
+    private final RentalRequestRepository rentalRequestRepository;
 
     public List<ListingResponse> getAllListings() {
-        return listingRepository.findAll().stream()
+        return listingRepository.findByStatus(Listing.ListingStatus.available).stream()
             .map(this::toResponse)
             .collect(Collectors.toList());
     }
 
-    public ListingResponse getById(Long id) {
+    public List<ListingResponse> getListingsForOwner(UUID ownerId) {
+        return listingRepository.findByOwnerId(ownerId).stream()
+            .map(this::toResponse)
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * Public listing detail: only {@code available} listings, unless the viewer is the owner
+     * (e.g. to edit or review a rented unit from My Listings).
+     */
+    public ListingResponse getByIdForViewer(Long id, Authentication authentication) {
         Listing listing = listingRepository.findById(id)
             .orElseThrow(() -> new AppException("DB-001", "Resource not found", Map.of("id", id.toString()), HttpStatus.NOT_FOUND));
+
+        if (listing.getStatus() != Listing.ListingStatus.available) {
+            UUID viewerId = resolveUserId(authentication);
+            if (viewerId == null || !listing.getOwnerId().equals(viewerId)) {
+                throw new AppException("DB-001", "Resource not found", Map.of("id", id.toString()), HttpStatus.NOT_FOUND);
+            }
+        }
         return toResponse(listing);
+    }
+
+    private static UUID resolveUserId(Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof UUID uuid) {
+            return uuid;
+        }
+        return null;
     }
 
     @Transactional
@@ -108,11 +140,21 @@ public class ListingService {
         if (!listing.getOwnerId().equals(ownerId)) {
             throw new AppException("AUTH-003", "Insufficient permissions", "You can only delete your own listings", HttpStatus.FORBIDDEN);
         }
+
+        List<RentalRequest> requests = rentalRequestRepository.findByListingId(id);
+        for (RentalRequest rr : requests) {
+            ratingRepository.findByRentalRequestId(rr.getId()).ifPresent(ratingRepository::delete);
+            rentalRequestRepository.delete(rr);
+        }
+
         listingRepository.delete(listing);
     }
 
     private ListingResponse toResponse(Listing listing) {
         Double ownerRating = ratingRepository.getAverageRatingByOwnerId(listing.getOwnerId());
+        User ownerUser = userRepository.findById(listing.getOwnerId()).orElse(null);
+        long listingCount = listingRepository.countByOwnerId(listing.getOwnerId());
+        int ownerListingCount = (int) Math.min(listingCount, Integer.MAX_VALUE);
         return ListingResponse.builder()
             .id(listing.getId())
             .title(listing.getTitle())
@@ -124,6 +166,9 @@ public class ListingService {
             .propertyType(listing.getPropertyType())
             .status(listing.getStatus().name())
             .ownerRating(ownerRating != null ? Math.round(ownerRating * 10.0) / 10.0 : null)
+            .ownerFirstname(ownerUser != null ? ownerUser.getFirstname() : null)
+            .ownerLastname(ownerUser != null ? ownerUser.getLastname() : null)
+            .ownerListingCount(ownerListingCount > 0 ? ownerListingCount : null)
             .bedrooms(listing.getBedrooms())
             .bathrooms(listing.getBathrooms())
             .areaSqFt(listing.getAreaSqFt())
