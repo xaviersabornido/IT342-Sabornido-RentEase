@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import OwnerSidebar from '../layouts/OwnerSidebar'
 import './Dashboard.css'
 import { fetchListings, createListing } from '../api/listings'
 
@@ -70,7 +71,9 @@ export default function Dashboard() {
   }
 
   const displayName = user.firstname ? `${user.firstname} ${user.lastname}`.trim() : user.email || 'User'
-  const isOwner = user.role === 'OWNER'
+  const roleUpper = String(user.role || '').toUpperCase()
+  const isOwner = roleUpper === 'OWNER'
+  const isRenter = roleUpper === 'RENTER'
 
   const filteredListings = filter === 'all'
     ? listings
@@ -78,6 +81,9 @@ export default function Dashboard() {
         const type = (l.propertyType || '').toLowerCase()
         if (filter === 'apartments') return type === 'apartment'
         if (filter === 'houses') return type === 'house'
+        if (filter === 'condominiums') {
+          return type === 'condo' || type === 'condominium'
+        }
         return true
       })
   const totalPages = Math.max(1, Math.ceil(filteredListings.length / PER_PAGE))
@@ -115,7 +121,7 @@ export default function Dashboard() {
       return
     }
 
-    if (user.role !== 'OWNER') {
+    if (!isOwner) {
       setModalError('Only owners can list properties.')
       return
     }
@@ -152,19 +158,21 @@ export default function Dashboard() {
     }
   }
 
-  return (
+  const dashboardBody = (
     <div className="dashboard-page">
       <header className="dashboard-header">
-        <div className="header-content">
-          <div className="header-brand">
-            <div className="brand-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
-              </svg>
+        <div className={`header-content${isOwner ? ' header-content--owner-toolbar' : ''}`}>
+          {!isOwner && (
+            <div className="header-brand">
+              <div className="brand-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+              </div>
+              <h1 className="header-title">RentEase</h1>
             </div>
-            <h1 className="header-title">RentEase</h1>
-          </div>
+          )}
           <div className="header-actions">
             {isOwner && (
               <button
@@ -178,14 +186,27 @@ export default function Dashboard() {
                 List Property
               </button>
             )}
-            <button type="button" className="btn-profile">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              <span>{displayName}</span>
-            </button>
-            <button type="button" className="btn-logout" onClick={handleLogout}>Logout</button>
+            {!isOwner && (
+              <>
+                {isRenter && (
+                  <button
+                    type="button"
+                    className="btn-my-requests"
+                    onClick={() => navigate('/my-requests')}
+                  >
+                    My rental requests
+                  </button>
+                )}
+                <button type="button" className="btn-profile">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  <span>{displayName}</span>
+                </button>
+                <button type="button" className="btn-logout" onClick={handleLogout}>Logout</button>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -247,19 +268,12 @@ export default function Dashboard() {
                 >
                   Houses
                 </button>
-                <button type="button" className="filter-btn filter-btn-more">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="4" y1="21" x2="4" y2="14" />
-                    <line x1="4" y1="10" x2="4" y2="3" />
-                    <line x1="12" y1="21" x2="12" y2="12" />
-                    <line x1="12" y1="8" x2="12" y2="3" />
-                    <line x1="20" y1="21" x2="20" y2="16" />
-                    <line x1="20" y1="12" x2="20" y2="3" />
-                    <line x1="1" y1="14" x2="7" y2="14" />
-                    <line x1="9" y1="8" x2="15" y2="8" />
-                    <line x1="17" y1="16" x2="23" y2="16" />
-                  </svg>
-                  More Filters
+                <button
+                  type="button"
+                  className={`filter-btn ${filter === 'condominiums' ? 'filter-btn-active' : ''}`}
+                  onClick={() => { setFilter('condominiums'); setCurrentPage(1) }}
+                >
+                  Condominium
                 </button>
               </div>
             </section>
@@ -281,7 +295,12 @@ export default function Dashboard() {
                         />
                         ) : (
                         <span className="listing-image-placeholder">
-                          {listing.propertyType === 'House' ? 'Cozy House Exterior' : 'Modern Apartment Interior'}
+                          {(() => {
+                            const t = (listing.propertyType || '').toLowerCase()
+                            if (t === 'house') return 'Cozy House Exterior'
+                            if (t === 'condo' || t === 'condominium') return 'Condominium'
+                            return 'Modern Apartment Interior'
+                          })()}
                         </span>
                         )}
                     </div>
@@ -609,4 +628,17 @@ export default function Dashboard() {
       </main>
     </div>
   )
+
+  if (isOwner) {
+    return (
+      <div className="owner-layout">
+        <OwnerSidebar user={user} />
+        <div className="owner-main owner-main--dashboard">
+          {dashboardBody}
+        </div>
+      </div>
+    )
+  }
+
+  return dashboardBody
 }
