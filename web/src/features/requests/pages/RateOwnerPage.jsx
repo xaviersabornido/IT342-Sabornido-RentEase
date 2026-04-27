@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { fetchRenterRentalRequests } from '../api/rentalRequests'
-import { fetchOwnerRatingSummary, submitOwnerRating } from '../api/ratings'
-import './RateOwnerPage.css'
+import { fetchOwnerRatingSummary, submitOwnerRating } from '../../ratings/api/ratings'
+import '../styles/RateOwnerPage.css'
 
 const OVERALL_LABELS = ['Poor', 'Fair', 'Good', 'Very good', 'Excellent']
 

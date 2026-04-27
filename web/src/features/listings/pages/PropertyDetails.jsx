@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import './PropertyDetails.css'
+import '../styles/PropertyDetails.css'
 import { fetchListingById } from '../api/listings'
-import { createRentalRequest } from '../api/rentalRequests'
+import { createRentalRequest } from '../../requests/api/rentalRequests'
 
 const MAX_MESSAGE = 500
 

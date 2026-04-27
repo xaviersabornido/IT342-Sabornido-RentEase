@@ -43,6 +43,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  min-height: 40px;
 }
 
 .header-brand .brand-icon {
@@ -60,11 +61,17 @@
 .header-brand .brand-icon svg {
   width: 22px;
   height: 22px;
+  display: block;
 }
 
 .header-title {
   font-size: 1.5rem;
   font-weight: 800;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  transform: translateY(-1px);
   color: #222;
   margin: 0;
   letter-spacing: -0.02em;

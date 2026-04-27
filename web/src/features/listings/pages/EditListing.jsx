@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import './PropertyDetails.css'
+import '../styles/PropertyDetails.css'
 import { deleteListing, fetchListingById, updateListing } from '../api/listings'
 
 function formatDateInput(value) {

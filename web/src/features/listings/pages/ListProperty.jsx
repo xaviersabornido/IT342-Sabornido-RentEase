@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import './PropertyDetails.css'
+import '../styles/PropertyDetails.css'
 import { createListing } from '../api/listings'
 
 export default function ListProperty() {

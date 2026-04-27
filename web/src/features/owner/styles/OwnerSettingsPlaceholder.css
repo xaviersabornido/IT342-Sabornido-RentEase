@@ -1,0 +1,53 @@
+.owner-settings-page {
+  padding: 28px 32px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.owner-settings-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.owner-settings-title {
+  margin: 0 0 6px;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #222;
+  letter-spacing: -0.02em;
+}
+
+.owner-settings-subtitle {
+  margin: 0;
+  font-size: 1rem;
+  color: #717171;
+}
+
+.owner-settings-divider {
+  height: 1px;
+  background: rgba(255, 90, 95, 0.12);
+  margin: 22px 0 24px;
+}
+
+.owner-settings-empty {
+  background: #fff;
+  border: 1px solid rgba(255, 90, 95, 0.1);
+  border-radius: 12px;
+  padding: 40px 24px;
+  text-align: center;
+  color: #717171;
+  box-shadow: 0 2px 8px rgba(255, 90, 95, 0.06);
+}
+
+@media (max-width: 640px) {
+  .owner-settings-page {
+    padding: 20px 16px 32px;
+  }
+
+  .owner-settings-title {
+    font-size: 1.45rem;
+  }
+}

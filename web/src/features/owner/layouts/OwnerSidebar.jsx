@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { fetchOwnerRatingSummary } from '../api/ratings'
+import { fetchOwnerRatingSummary } from '../../ratings/api/ratings'
 import { resolveStoredUserId } from './ownerUserId'
-import './OwnerLayout.css'
+import '../styles/OwnerLayout.css'
 
 const nav = [
   {

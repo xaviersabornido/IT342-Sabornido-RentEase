@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import './MyListings.css'
+import '../styles/MyListings.css'
 import { deleteListing, fetchMyListings } from '../api/listings'
 
 function formatAvailability(status) {

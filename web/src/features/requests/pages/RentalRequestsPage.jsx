@@ -4,7 +4,7 @@ import {
   declineRentalRequest,
   fetchOwnerRentalRequests,
 } from '../api/rentalRequests'
-import './RentalRequestsPage.css'
+import '../styles/RentalRequestsPage.css'
 
 function formatMoney(n) {
   if (n == null || n === '') return '—'

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import OwnerSidebar from '../layouts/OwnerSidebar'
-import './Dashboard.css'
+import OwnerSidebar from '../../owner/layouts/OwnerSidebar'
+import '../styles/Dashboard.css'
 import { fetchListings, createListing } from '../api/listings'
 
 const PER_PAGE = 9

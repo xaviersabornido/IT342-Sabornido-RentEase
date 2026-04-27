@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { fetchRenterRentalRequests } from '../api/rentalRequests'
-import './MyRentalRequestsPage.css'
+import '../styles/MyRentalRequestsPage.css'
 
 function formatMoney(n) {
   if (n == null || n === '') return '—'

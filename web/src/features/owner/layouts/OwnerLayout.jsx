@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import OwnerSidebar from './OwnerSidebar'
-import './OwnerLayout.css'
+import '../styles/OwnerLayout.css'
 
 export default function OwnerLayout() {
   const navigate = useNavigate()
