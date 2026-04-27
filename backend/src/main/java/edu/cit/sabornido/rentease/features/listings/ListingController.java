@@ -1,0 +1,73 @@
+package edu.cit.sabornido.rentease.features.listings;
+
+import edu.cit.sabornido.rentease.core.ApiResponse;
+import edu.cit.sabornido.rentease.features.listings.dto.ListingRequest;
+import edu.cit.sabornido.rentease.features.listings.dto.ListingResponse;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+@RestController
+@RequestMapping("/api/v1/listings")
+@RequiredArgsConstructor
+public class ListingController {
+
+    private final ListingService listingService;
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<ListingResponse>>> getAll() {
+        return ResponseEntity.ok(ApiResponse.success(listingService.getAllListings()));
+    }
+
+    @GetMapping("/mine")
+    @PreAuthorize("hasRole('OWNER')")
+    public ResponseEntity<ApiResponse<List<ListingResponse>>> getMine(Authentication auth) {
+        UUID ownerId = (UUID) auth.getPrincipal();
+        return ResponseEntity.ok(ApiResponse.success(listingService.getListingsForOwner(ownerId)));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<ListingResponse>> getById(
+            @PathVariable Long id,
+            Authentication authentication
+    ) {
+        return ResponseEntity.ok(ApiResponse.success(listingService.getByIdForViewer(id, authentication)));
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('OWNER')")
+    public ResponseEntity<ApiResponse<ListingResponse>> create(
+            Authentication auth,
+            @Valid @RequestBody ListingRequest request
+    ) {
+        UUID ownerId = (UUID) auth.getPrincipal();
+        ListingResponse res = listingService.create(ownerId, request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success(res));
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('OWNER')")
+    public ResponseEntity<ApiResponse<ListingResponse>> update(
+            @PathVariable Long id,
+            Authentication auth,
+            @Valid @RequestBody ListingRequest request
+    ) {
+        UUID ownerId = (UUID) auth.getPrincipal();
+        return ResponseEntity.ok(ApiResponse.success(listingService.update(id, ownerId, request)));
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('OWNER')")
+    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id, Authentication auth) {
+        UUID ownerId = (UUID) auth.getPrincipal();
+        listingService.delete(id, ownerId);
+        return ResponseEntity.noContent().build();
+    }
+}
