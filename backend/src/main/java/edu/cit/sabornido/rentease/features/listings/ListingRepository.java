@@ -1,6 +1,6 @@
 package edu.cit.sabornido.rentease.features.listings;
 
-import edu.cit.sabornido.rentease.features.listings.Listing;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
