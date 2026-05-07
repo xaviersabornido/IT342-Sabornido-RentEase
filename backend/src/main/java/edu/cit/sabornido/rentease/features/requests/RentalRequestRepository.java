@@ -1,6 +1,6 @@
 package edu.cit.sabornido.rentease.features.requests;
 
-import edu.cit.sabornido.rentease.features.requests.RentalRequest;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
