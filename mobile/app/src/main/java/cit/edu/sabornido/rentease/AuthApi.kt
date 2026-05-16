@@ -104,5 +104,3 @@ data class AuthPayload(
     val refreshToken: String?,
     val userJson: String,
 )
-
-class ApiException(message: String) : Exception(message)
