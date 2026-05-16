@@ -22,4 +22,5 @@
     <color name="rentease_feature_teal_end">#FF008489</color>
     <color name="rentease_feature_amber_start">#FFFFB400</color>
     <color name="rentease_feature_amber_end">#FFFF8C00</color>
+    <color name="amenity_chip_bg">#FFF2F2F2</color>
 </resources>

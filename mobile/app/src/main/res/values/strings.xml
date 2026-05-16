@@ -29,4 +29,107 @@
     <string name="registration_successful">Registration Successful</string>
     <string name="registration_success_hint">You can now sign in with your account.</string>
     <string name="ok">OK</string>
+    <string name="dashboard_browse_subtitle">Browse available rentals matching the web app catalog.</string>
+    <string name="dashboard_empty_listings">No listings match this filter.</string>
+    <string name="filter_all">All</string>
+    <string name="filter_apartments">Apartments</string>
+    <string name="filter_houses">Houses</string>
+    <string name="filter_condos">Condos</string>
+    <string name="prev_page">Previous</string>
+    <string name="next_page">Next</string>
+    <string name="list_property">List property</string>
+    <string name="my_listings">My listings</string>
+    <string name="my_listings_empty">You have no listings yet. Use List property on the dashboard to add one.</string>
+    <string name="my_rental_requests">My rental requests</string>
+    <string name="rental_requests">Rental requests</string>
+    <string name="owner_settings">Owner settings</string>
+    <string name="host_rating_label">Your host rating</string>
+    <string name="host_rating_loading">…</string>
+    <string name="host_rating_none">No renter reviews yet</string>
+    <string name="host_rating_reviews">%1$.1f ★ · %2$d reviews</string>
+    <string name="host_rating_single_review">%1$.1f ★ · 1 review</string>
+    <string name="settings_profile">Profile</string>
+    <string name="settings_shortcuts">Shortcuts</string>
+    <string name="settings_open_my_listings">My listings</string>
+    <string name="settings_open_rental_requests">Rental requests</string>
+    <string name="unable_load_listings">Unable to load listings.</string>
+    <string name="loading">Loading…</string>
+    <string name="error_prefix">Error: %1$s</string>
+    <string name="property_details">Property details</string>
+    <string name="property_features">Property features</string>
+    <string name="feature_bedrooms">Bedrooms</string>
+    <string name="feature_bathrooms">Bathrooms</string>
+    <string name="feature_area">Area</string>
+    <string name="feature_parking">Parking</string>
+    <string name="detail_available_from">Available from</string>
+    <string name="detail_lease_term">Lease term</string>
+    <string name="detail_deposit">Deposit</string>
+    <string name="detail_furnished">Furnished</string>
+    <string name="detail_utilities">Utilities</string>
+    <string name="detail_pets">Pets</string>
+    <string name="furnished_yes">Furnished</string>
+    <string name="furnished_no">Unfurnished</string>
+    <string name="pets_allowed">Allowed</string>
+    <string name="pets_not_allowed">Not allowed</string>
+    <string name="utilities_plus">+ %1$s utilities</string>
+    <string name="utilities_approx">≈ %1$s / mo</string>
+    <string name="parking_one_space">1 space</string>
+    <string name="parking_n_spaces">%1$d spaces</string>
+    <string name="lease_months_fmt">%1$d months</string>
+    <string name="availability_available_now">Available now</string>
+    <string name="availability_rented">Currently occupied</string>
+    <string name="availability_pending">Pending</string>
+    <string name="availability_generic">See listing</string>
+    <string name="description_empty">No description provided for this property yet.</string>
+    <string name="send_rental_request">Send rental request</string>
+    <string name="your_listing">Your listing</string>
+    <string name="sign_in_to_request">Sign in as a renter to request this property.</string>
+    <string name="back">Back</string>
+    <string name="owner_property_owner">Property owner</string>
+    <string name="no_owner_rating">No rating yet</string>
+    <string name="description">Description</string>
+    <string name="amenities">Amenities</string>
+    <string name="property_type">Property type</string>
+    <string name="save_listing">Save</string>
+    <string name="delete_listing">Delete listing</string>
+    <string name="edit_listing">Edit listing</string>
+    <string name="new_listing_title">List a property</string>
+    <string name="edit_listing_title">Edit listing</string>
+    <string name="pending_tab">Pending</string>
+    <string name="past_tab">Past</string>
+    <string name="approve">Approve</string>
+    <string name="decline">Decline</string>
+    <string name="rate_owner">Rate owner</string>
+    <string name="view_listing">View listing</string>
+    <string name="submit_request">Submit request</string>
+    <string name="preferred_start">Preferred start (YYYY-MM-DD)</string>
+    <string name="lease_months">Lease months</string>
+    <string name="monthly_income">Monthly income</string>
+    <string name="employment_status">Employment status</string>
+    <string name="message_optional">Message (optional)</string>
+    <string name="has_pets">Has pets</string>
+    <string name="smokes">Smokes</string>
+    <string name="credit_check_agree">I agree to a credit check</string>
+    <string name="overall_rating">Overall rating</string>
+    <string name="submit_rating">Submit rating</string>
+    <string name="comment_optional">Comment (optional)</string>
+    <string-array name="employment_options">
+        <item>Full-time Employee</item>
+        <item>Part-time Employee</item>
+        <item>Self-employed</item>
+        <item>Student</item>
+        <item>Unemployed</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="lease_month_options">
+        <item></item>
+        <item>3</item>
+        <item>6</item>
+        <item>12</item>
+        <item>18</item>
+        <item>24</item>
+    </string-array>
+    <string name="renter_no_requests_yet">No requests yet. Browse listings and send a rental request.</string>
+    <string name="no_pending_requests">Nothing to show in this tab.</string>
+    <string name="owner_no_requests_yet">No rental requests yet. They appear when renters apply to your listings.</string>
 </resources>
