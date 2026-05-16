@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/thumb"
+            android:layout_width="104dp"
+            android:layout_height="104dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_listing_image_placeholder"
+            android:contentDescription="@string/my_listings"
+            android:scaleType="centerCrop"
+            tools:ignore="ImageContrastCheck" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/RentEase.FormTitle"
+                android:textSize="15sp"
+                tools:text="Nice apt" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/RentEase.FormSubtitle"
+                tools:text="Loc" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textStyle="bold"
+                tools:text="AVAILABLE" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_edit"
+                    style="@style/Widget.Material3.Button.IconButton.Outlined"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="4dp"
+                    android:contentDescription="@string/edit_listing"
+                    app:icon="@drawable/ic_edit_24"
+                    app:iconTint="@color/rentease_primary"
+                    app:strokeColor="@color/rentease_primary" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_delete"
+                    style="@style/Widget.Material3.Button.IconButton.Outlined"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/delete_listing"
+                    app:icon="@drawable/ic_delete_24"
+                    app:iconTint="@color/rentease_error"
+                    app:strokeColor="@color/rentease_error" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
